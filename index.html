@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Europa Jove Local · Crea360</title>
+
+  <!-- ============================================================
+       TIPOGRAFÍAS — sustituye por tus fuentes definitivas aquí
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       TOKENS DE DISEÑO — edita aquí para cambiar todo el aspecto
+       ============================================================ */
+    :root {
+      /* Paleta principal */
+      --color-primary:   #11179f;   /* Azul Crea360 */
+      --color-secondary: #e8252e;   /* Rojo Crea360 */
+      --color-accent:    #fac119;   /* Amarillo Crea360 — CTA y detalles */
+
+      /* Fondos y superficies */
+      --color-bg:        #f7f7fb;   /* Blanco frío — fondo general */
+      --color-surface:   #ffffff;   /* Blanco puro — tarjetas */
+      --color-surface-2: #eeeef6;   /* Superficie secundaria — franjas */
+
+      /* Texto */
+      --color-text:      #111827;
+      --color-muted:     #6b7280;
+      --color-on-dark:   #ffffff;
+
+      /* Tipografías */
+      --font-heading:    'Inter', system-ui, sans-serif;
+      --font-body:       'Inter', system-ui, sans-serif;
+
+      /* Escala tipográfica */
+      --text-xs:   0.75rem;
+      --text-sm:   0.875rem;
+      --text-base: 1rem;
+      --text-lg:   1.125rem;
+      --text-xl:   1.25rem;
+      --text-2xl:  1.5rem;
+      --text-3xl:  1.875rem;
+      --text-4xl:  2.25rem;
+      --text-5xl:  3rem;
+
+      /* Espaciado y layout */
+      --max-width:       1140px;
+      --section-pad-y:   6rem;
+      --section-pad-x:   1.5rem;
+
+      /* Bordes y sombras */
+      --radius:          0.5rem;
+      --radius-lg:       1rem;
+      --shadow-soft:     0 2px 16px rgba(0, 0, 0, 0.07);
+      --shadow-card:     0 4px 24px rgba(0, 0, 0, 0.09);
+
+      /* Transiciones */
+      --transition:      0.22s ease;
+    }
+
+    /* ============================================================
+       RESET Y BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    ul { list-style: none; }
+
+    /* ============================================================
+       UTILIDADES
+       ============================================================ */
+    .container {
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--section-pad-x);
+    }
+
+    .section {
+      padding-block: var(--section-pad-y);
+    }
+
+    .section--alt {
+      background-color: var(--color-surface-2);
+    }
+
+    .section--dark {
+      background-color: var(--color-primary);
+      color: var(--color-on-dark);
+    }
+
+    /* Etiqueta de sección pequeña sobre el título */
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section--dark .section-label {
+      color: var(--color-accent);
+    }
+
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+
+    .section--dark .section-heading {
+      color: var(--color-on-dark);
+    }
+
+    .section-sub {
+      font-size: var(--text-lg);
+      color: var(--color-muted);
+      max-width: 56ch;
+      line-height: 1.6;
+    }
+
+    .section--dark .section-sub {
+      color: rgba(255,255,255,0.72);
+    }
+
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header--center {
+      text-align: center;
+    }
+
+    .section-header--center .section-sub {
+      margin-inline: auto;
+    }
+
+    /* Separador decorativo */
+    .divider {
+      width: 3rem;
+      height: 3px;
+      background-color: var(--color-accent);
+      margin-bottom: 1.5rem;
+      border-radius: 2px;
+    }
+
+    .section-header--center .divider {
+      margin-inline: auto;
+    }
+
+    /* ============================================================
+       BOTONES
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      padding: 0.8rem 1.75rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background-color var(--transition), color var(--transition),
+                  box-shadow var(--transition), transform var(--transition);
+      border: 2px solid transparent;
+    }
+
+    .btn--primary {
+      background-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .btn--primary:hover {
+      background-color: #d4911a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(232, 160, 32, 0.35);
+    }
+
+    .btn--outline {
+      background-color: transparent;
+      color: var(--color-on-dark);
+      border-color: rgba(255,255,255,0.45);
+    }
+
+    .btn--outline:hover {
+      background-color: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .btn--outline-dark {
+      background-color: transparent;
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .btn--outline-dark:hover {
+      background-color: var(--color-primary);
+      color: var(--color-on-dark);
+    }
+
+    /* ============================================================
+       NAVEGACIÓN
+       ============================================================ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 2rem;
+    }
+
+    /* ---- Logo ---- */
+    /* EDITAR LOGO: sustituye el contenido de .nav__logo por un <img> con tu ruta */
+    .nav__logo {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav__logo-badge {
+      display: inline-block;
+      background-color: var(--color-primary);
+      color: var(--color-on-dark);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ---- Menú ---- */
+    .nav__menu {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .nav__link {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-muted);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius);
+      transition: color var(--transition), background-color var(--transition);
+      white-space: nowrap;
+    }
+
+    .nav__link:hover {
+      color: var(--color-primary);
+      background-color: var(--color-surface-2);
+    }
+
+    .nav__cta {
+      flex-shrink: 0;
+    }
+
+    /* Botón CTA de nav */
+    .btn--nav {
+      font-size: var(--text-xs);
+      padding: 0.6rem 1.25rem;
+      background-color: var(--color-primary);
+      color: var(--color-on-dark);
+      border-color: transparent;
+    }
+
+    .btn--nav:hover {
+      background-color: var(--color-secondary);
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ---- Hamburger (móvil) ---- */
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0.4rem;
+      background: none;
+      border: none;
+    }
+
+    .nav__toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: var(--color-primary);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      background-color: var(--color-primary);
+      color: var(--color-on-dark);
+      padding-block: 7rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Detalle geométrico decorativo de fondo */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 50%,
+          rgba(232, 37, 46, 0.28) 0%,
+          transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--color-bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero__eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      /* EDITAR: nombre principal del servicio */
+      font-size: clamp(var(--text-3xl), 5.5vw, var(--text-5xl));
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--color-on-dark);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero__title span {
+      color: var(--color-accent);
+    }
+
+    .hero__sub {
+      font-size: clamp(var(--text-base), 2vw, var(--text-xl));
+      color: rgba(255,255,255,0.78);
+      line-height: 1.55;
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+    }
+
+    .hero__body {
+      font-size: var(--text-base);
+      color: rgba(255,255,255,0.62);
+      line-height: 1.7;
+      max-width: 50ch;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Composición gráfica lado derecho */
+    .hero__visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero__card-stack {
+      display: grid;
+      gap: 1rem;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .hero__stat-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero__stat-card strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero__stat-card span {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+    }
+
+    .hero__stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* ============================================================
+       SECCIÓN 2 — SOBRE CREA360
+       ============================================================ */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about__pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .pillar {
+      background: var(--color-surface);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .pillar:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
+
+    .pillar__icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .pillar__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .pillar__text {
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      line-height: 1.55;
+    }
+
+    .about__figure {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      border-radius: var(--radius-lg);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* EDITAR: sustituir por imagen real — añadir background-image: url('ruta') */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about__figure-label {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: rgba(255,255,255,0.12);
+      text-align: center;
+      padding: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    /* ============================================================
+       SECCIÓN 3 — EL RETO
+       ============================================================ */
+    .reto__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .reto-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      border-left: 4px solid var(--color-accent);
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .reto-card:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
+
+    .reto-card__num {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      color: var(--color-surface-2);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .reto-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 0.6rem;
+    }
+
+    .reto-card__text {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       SECCIÓN 4 — LA PROPUESTA
+       ============================================================ */
+    .propuesta__inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .propuesta__badge {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      font-family: var(--font-heading);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .propuesta__features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .feature-item:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
+
+    .feature-item__icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 0.1rem;
+    }
+
+    .feature-item__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .feature-item__text {
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      line-height: 1.55;
+    }
+
+    /* ============================================================
+       SECCIÓN 5 — DESPLIEGUE DEL SERVICIO
+       ============================================================ */
+    .despliegue__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .fase-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      border-top: 3px solid var(--color-primary);
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow var(--transition), transform var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .fase-card:nth-child(2) { border-top-color: var(--color-secondary); }
+    .fase-card:nth-child(3) { border-top-color: var(--color-accent); }
+    .fase-card:nth-child(4) { border-top-color: #4caf8a; }
+
+    .fase-card:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-3px);
+    }
+
+    .fase-card__num {
+      font-family: var(--font-heading);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .fase-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1.25;
+    }
+
+    .fase-card__desc {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .fase-card__bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .fase-card__bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.45;
+    }
+
+    .fase-card__bullets li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-accent);
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+
+    /* ============================================================
+       SECCIÓN 6 — QUÉ INCLUYE
+       ============================================================ */
+    .incluye__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: box-shadow var(--transition);
+    }
+
+    .check-item:hover {
+      box-shadow: var(--shadow-soft);
+    }
+
+    .check-item__icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.1rem;
+    }
+
+    .check-item__icon svg {
+      width: 12px;
+      height: 12px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .check-item__text {
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       SECCIÓN 7 — QUÉ RECIBE EL AYUNTAMIENTO
+       ============================================================ */
+    .recibe__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .entregable-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.75rem;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .entregable-item:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
+
+    .entregable-item__num {
+      font-family: var(--font-heading);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      color: var(--color-surface-2);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 2.5rem;
+      text-align: right;
+    }
+
+    .entregable-item__content {}
+
+    .entregable-item__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .entregable-item__text {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.55;
+    }
+
+    /* ============================================================
+       SECCIÓN 8 — VALOR PARA EL MUNICIPIO
+       ============================================================ */
+    .valor__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .valor-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+
+    .valor-card:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+
+    .valor-card__icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .valor-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-on-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .valor-card__text {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       SECCIÓN 9 — EXPERIENCIA RELACIONADA
+       ============================================================ */
+    .casos__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+
+    .caso-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow var(--transition), transform var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .caso-card:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-3px);
+    }
+
+    .caso-card__header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      height: 120px;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+      /* EDITAR: añadir background-image: url('imagen.jpg') para cada caso */
+    }
+
+    .caso-card:nth-child(2) .caso-card__header {
+      background: linear-gradient(135deg, var(--color-secondary) 0%, #4caf8a 100%);
+    }
+
+    .caso-card:nth-child(3) .caso-card__header {
+      background: linear-gradient(135deg, #4a3470 0%, var(--color-primary) 100%);
+    }
+
+    .caso-card__tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    .caso-card__body {
+      padding: 1.75rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .caso-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1.3;
+    }
+
+    .caso-card__text {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .caso-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-secondary);
+      margin-top: 0.5rem;
+      transition: gap var(--transition), color var(--transition);
+    }
+
+    .caso-card__link:hover {
+      color: var(--color-primary);
+      gap: 0.7rem;
+    }
+
+    /* ============================================================
+       SECCIÓN 10 — CIERRE / CONTACTO
+       ============================================================ */
+    .contacto__inner {
+      text-align: center;
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    .contacto__tagline {
+      font-family: var(--font-heading);
+      font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--color-on-dark);
+      margin-bottom: 1.25rem;
+    }
+
+    .contacto__tagline span { color: var(--color-accent); }
+
+    .contacto__sub {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.68);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .contacto__actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .contacto__data {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .contacto__item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.65);
+    }
+
+    .contacto__item strong {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer {
+      background-color: rgba(0,0,0,0.3);
+      padding-block: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* EDITAR LOGO FOOTER: mismo que nav */
+    .footer__logo {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .footer__copy {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1024px) {
+      :root {
+        --section-pad-y: 5rem;
+      }
+
+      .hero__inner        { grid-template-columns: 1fr; gap: 3rem; }
+      .hero__visual       { display: none; }
+      .about__grid        { grid-template-columns: 1fr; gap: 3rem; }
+      .about__figure      { display: none; }
+      .despliegue__grid   { grid-template-columns: repeat(2, 1fr); }
+      .propuesta__inner   { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --section-pad-y: 4rem;
+        --section-pad-x: 1.25rem;
+      }
+
+      .nav__menu    { display: none; }
+      .nav__toggle  { display: flex; }
+
+      /* Menú móvil desplegado */
+      .nav__menu.is-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: var(--color-surface);
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        padding: 1rem var(--section-pad-x);
+        gap: 0.25rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        z-index: 99;
+      }
+
+      .nav__cta     { display: none; }
+
+      .reto__grid         { grid-template-columns: 1fr; }
+      .despliegue__grid   { grid-template-columns: 1fr; }
+      .incluye__grid      { grid-template-columns: 1fr; }
+      .recibe__grid       { grid-template-columns: 1fr; }
+      .valor__grid        { grid-template-columns: 1fr; }
+      .casos__grid        { grid-template-columns: 1fr; }
+      .about__pillars     { grid-template-columns: 1fr; }
+      .propuesta__features { grid-template-columns: 1fr; }
+
+      .hero__actions { flex-direction: column; align-items: flex-start; }
+      .footer__inner { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      :root { --section-pad-y: 3rem; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVEGACIÓN
+       Editar: logo, enlaces de menú, href de anclas
+       ============================================================ -->
+  <nav class="nav" id="top">
+    <div class="container">
+      <div class="nav__inner">
+
+        <!-- LOGO — sustituir ruta por el archivo definitivo si cambia el nombre -->
+        <a href="#top" class="nav__logo">
+          <img src="logo-crea360.png" alt="Crea360" height="40" style="display:block;" />
+        </a>
+
+        <!-- Menú de anclas -->
+        <ul class="nav__menu" id="navMenu">
+          <li><a class="nav__link" href="#propuesta">Propuesta</a></li>
+          <li><a class="nav__link" href="#despliegue">Despliegue</a></li>
+          <li><a class="nav__link" href="#entregables">Entregables</a></li>
+          <li><a class="nav__link" href="#experiencia">Experiencia</a></li>
+          <li><a class="nav__link" href="#contacto">Contacto</a></li>
+        </ul>
+
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <a href="#contacto" class="btn btn--nav">Contactar</a>
+          <!-- Botón hamburger móvil -->
+          <button class="nav__toggle" id="navToggle" aria-label="Abrir menú">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       1. HERO
+       Editar: título, subtítulo, texto y CTAs
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero__inner">
+
+        <!-- Contenido principal -->
+        <div class="hero__content">
+          <div class="hero__eyebrow">
+            <span class="hero__eyebrow-dot"></span>
+            <!-- EDITAR: etiqueta pequeña sobre el título -->
+            Servicio municipal · Diputació de València
+          </div>
+
+          <!-- EDITAR: nombre del servicio -->
+          <h1 class="hero__title">
+            Europa Jove Local
+          </h1>
+
+          <!-- EDITAR: subtítulo principal -->
+          <p class="hero__sub">
+            Servicio municipal para acercar las oportunidades europeas a la juventud
+          </p>
+
+          <!-- EDITAR: texto de valor -->
+          <p class="hero__body">
+            Una propuesta integral para que los ayuntamientos activen, difundan y estructuren
+            un servicio local de información, dinamización y conexión de jóvenes
+            con oportunidades europeas.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#propuesta" class="btn btn--primary">Ver propuesta</a>
+            <a href="#contacto" class="btn btn--outline">Contactar con Crea360</a>
+          </div>
+        </div>
+
+        <!-- Composición visual lateral — datos estadísticos de contexto -->
+        <div class="hero__visual">
+          <div class="hero__card-stack">
+            <!-- EDITAR: datos de impacto o contexto -->
+            <div class="hero__stat-card">
+              <strong>+5.000</strong>
+              <span>jóvenes informados sobre oportunidades europeas en municipios con servicios activos</span>
+            </div>
+            <div class="hero__stat-row">
+              <div class="hero__stat-card">
+                <strong>12+</strong>
+                <span>programas europeos accesibles a jóvenes locales</span>
+              </div>
+              <div class="hero__stat-card">
+                <strong>100%</strong>
+                <span>servicio llave en mano para el ayuntamiento</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       2. SOBRE CREA360
+       Editar: texto descriptivo y tarjetas de pilares
+       ============================================================ -->
+  <section class="section" id="crea360">
+    <div class="container">
+      <div class="about__grid">
+
+        <div>
+          <div class="section-header">
+            <span class="section-label">Quiénes somos</span>
+            <div class="divider"></div>
+            <!-- EDITAR: título de sección -->
+            <h2 class="section-heading">Experiencia al servicio<br>del territorio</h2>
+            <!-- EDITAR: texto descriptivo -->
+            <p class="section-sub">
+              Crea360 acompaña a administraciones públicas en el diseño y puesta en marcha
+              de proyectos estratégicos, servicios municipales e iniciativas vinculadas a
+              juventud, participación, innovación y programas europeos. Trabajamos con un
+              enfoque práctico, orientado a resultados, visibilidad pública y capacidad
+              real de ejecución.
+            </p>
+          </div>
+
+          <!-- EDITAR: tarjetas de pilares -->
+          <div class="about__pillars">
+            <div class="pillar">
+              <div class="pillar__icon">🏛️</div>
+              <div class="pillar__title">Administración pública</div>
+              <p class="pillar__text">Proyectos con entidades locales, diputaciones y organismos autonómicos.</p>
+            </div>
+            <div class="pillar">
+              <div class="pillar__icon">🌍</div>
+              <div class="pillar__title">Proyectos europeos</div>
+              <p class="pillar__text">Gestión y asesoría en programas de la UE orientados a juventud y territorio.</p>
+            </div>
+            <div class="pillar">
+              <div class="pillar__icon">👥</div>
+              <div class="pillar__title">Juventud y participación</div>
+              <p class="pillar__text">Diseño de servicios, espacios y procesos para la ciudadanía joven.</p>
+            </div>
+            <div class="pillar">
+              <div class="pillar__icon">📋</div>
+              <div class="pillar__title">Estrategia local</div>
+              <p class="pillar__text">Planes, estructuras y herramientas adaptadas al municipio.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zona visual — sustituir por imagen de equipo, proyecto, etc. -->
+        <div class="about__figure">
+          <div class="about__figure-label">
+            <!-- EDITAR: imagen de fondo o ilustración -->
+            Crea360
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       3. EL RETO
+       Editar: título, introducción y tarjetas de reto
+       ============================================================ -->
+  <section class="section section--alt" id="reto">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <span class="section-label">El punto de partida</span>
+        <div class="divider"></div>
+        <h2 class="section-heading">El reto</h2>
+      </div>
+      <div style="max-width:720px;margin-inline:auto;display:flex;flex-direction:column;gap:1.25rem;">
+        <p style="font-size:var(--text-lg);line-height:1.7;color:var(--color-text);">
+          Muchos ayuntamientos quieren acercar a la población joven las oportunidades que ofrece
+          Europa, pero no siempre cuentan con una estructura clara para hacerlo. Informar bien,
+          generar interés, disponer de materiales útiles, contar con un espacio específico en la
+          web municipal o crear un canal estable para conectar con jóvenes requiere tiempo, enfoque
+          y herramientas concretas.
+        </p>
+        <p style="font-size:var(--text-lg);line-height:1.7;color:var(--color-secondary);font-weight:500;">
+          Europa Jove Local nace para dar respuesta a esa necesidad con un formato sencillo,
+          visible y listo para desplegar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       4. LA PROPUESTA
+       Editar: título, descripción e ítems de características
+       ============================================================ -->
+  <section class="section" id="propuesta">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <span class="section-label">La solución</span>
+        <div class="divider"></div>
+        <h2 class="section-heading">La propuesta</h2>
+      </div>
+      <div style="max-width:720px;margin-inline:auto;">
+        <p style="font-size:var(--text-lg);line-height:1.7;color:var(--color-text);">
+          Europa Jove Local es un servicio municipal llave en mano para activar, difundir y
+          estructurar oportunidades europeas dirigidas a la juventud. La propuesta combina
+          dinamización presencial, comunicación municipal, soporte digital, capacitación interna
+          y herramientas de continuidad para que el ayuntamiento pueda acercar a los jóvenes
+          oportunidades de movilidad, formación, participación, voluntariado y desarrollo
+          personal y profesional.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       5. DESPLIEGUE DEL SERVICIO
+       Editar: título y 4 tarjetas de fase
+       ============================================================ -->
+  <section class="section section--alt" id="despliegue">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <span class="section-label">Cómo lo hacemos</span>
+        <div class="divider"></div>
+        <!-- EDITAR: título -->
+        <h2 class="section-heading">Despliegue del servicio</h2>
+        <p class="section-sub">Cuatro fases para activar, visibilizar y consolidar el servicio local de oportunidades europeas.</p>
+      </div>
+
+      <!-- EDITAR: 4 tarjetas de fase -->
+      <div class="despliegue__grid">
+
+        <div class="fase-card">
+          <div class="fase-card__num">Fase 01</div>
+          <div class="fase-card__title">Puesta en marcha</div>
+          <p class="fase-card__desc">Definimos la base operativa del servicio y preparamos sus elementos de identidad, comunicación y soporte digital.</p>
+          <ul class="fase-card__bullets">
+            <li>Reunión inicial con el ayuntamiento</li>
+            <li>Definición del enfoque local del servicio</li>
+            <li>Identidad gráfica básica</li>
+            <li>Diseño del espacio específico en la web municipal</li>
+          </ul>
+        </div>
+
+        <div class="fase-card">
+          <div class="fase-card__num">Fase 02</div>
+          <div class="fase-card__title">Difusión y activación</div>
+          <p class="fase-card__desc">Llevamos la información a los espacios donde se encuentra la juventud y activamos la difusión municipal del servicio.</p>
+          <ul class="fase-card__bullets">
+            <li>Hasta 4 sesiones informativas y de dinamización</li>
+            <li>Actuaciones en dependencias municipales o centros educativos</li>
+            <li>Adaptación de contenidos al público destinatario</li>
+            <li>Recursos de difusión para redes y canales municipales</li>
+          </ul>
+        </div>
+
+        <div class="fase-card">
+          <div class="fase-card__num">Fase 03</div>
+          <div class="fase-card__title">Estructura de continuidad</div>
+          <p class="fase-card__desc">Creamos una herramienta básica para recoger intereses y facilitar el seguimiento de oportunidades a nivel local.</p>
+          <ul class="fase-card__bullets">
+            <li>Creación de una bolsa municipal de jóvenes</li>
+            <li>Recogida de intereses y perfiles</li>
+            <li>Base para prescripción de oportunidades</li>
+            <li>Canal para envío puntual de información útil</li>
+          </ul>
+        </div>
+
+        <div class="fase-card">
+          <div class="fase-card__num">Fase 04</div>
+          <div class="fase-card__title">Capacitación y cierre</div>
+          <p class="fase-card__desc">Reforzamos la capacidad interna del ayuntamiento y cerramos el servicio con una acción visible y participativa.</p>
+          <ul class="fase-card__bullets">
+            <li>Formación para personal técnico y político</li>
+            <li>Orientación práctica sobre oportunidades europeas</li>
+            <li>Foro final de experiencias</li>
+            <li>Recomendaciones para continuidad del servicio</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       6. QUÉ INCLUYE
+       Editar: título y lista de prestaciones
+       ============================================================ -->
+  <section class="section" id="incluye">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <span class="section-label">Prestaciones</span>
+        <div class="divider"></div>
+        <!-- EDITAR: título -->
+        <h2 class="section-heading">Qué incluye el servicio</h2>
+      </div>
+
+      <!-- EDITAR: ítems del checklist -->
+      <div class="incluye__grid">
+        <div class="check-item">
+          <div class="check-item__icon">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <span class="check-item__text">Hasta 4 sesiones informativas y de dinamización</span>
+        </div>
+        <div class="check-item">
+          <div class="check-item__icon">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <span class="check-item__text">Recursos comunicativos para redes sociales</span>
+        </div>
+        <div class="check-item">
+          <div class="check-item__icon">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <span class="check-item__text">Diseño de un apartado específico en la web municipal</span>
+        </div>
+        <div class="check-item">
+          <div class="check-item__icon">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <span class="check-item__text">Creación de una bolsa municipal de jóvenes</span>
+        </div>
+        <div class="check-item">
+          <div class="check-item__icon">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <span class="check-item__text">Identidad básica del servicio</span>
+        </div>
+        <div class="check-item">
+          <div class="check-item__icon">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <span class="check-item__text">Formación para personal técnico y político</span>
+        </div>
+        <div class="check-item">
+          <div class="check-item__icon">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <span class="check-item__text">Foro final de experiencias</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       7. QUÉ RECIBE EL AYUNTAMIENTO
+       Editar: título y entregables
+       ============================================================ -->
+  <section class="section section--alt" id="entregables">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <span class="section-label">Entregables</span>
+        <div class="divider"></div>
+        <!-- EDITAR: título -->
+        <h2 class="section-heading">Qué recibe el ayuntamiento</h2>
+        <p class="section-sub">Al finalizar el servicio, el municipio cuenta con todo lo necesario para sostenerlo.</p>
+      </div>
+
+      <!-- EDITAR: ítems de entregables -->
+      <div class="recibe__grid">
+        <div class="entregable-item">
+          <div class="entregable-item__num">01</div>
+          <div class="entregable-item__content">
+            <div class="entregable-item__title">Propuesta operativa de despliegue del servicio</div>
+          </div>
+        </div>
+        <div class="entregable-item">
+          <div class="entregable-item__num">02</div>
+          <div class="entregable-item__content">
+            <div class="entregable-item__title">Estructura de contenidos para la web municipal</div>
+          </div>
+        </div>
+        <div class="entregable-item">
+          <div class="entregable-item__num">03</div>
+          <div class="entregable-item__content">
+            <div class="entregable-item__title">Formulario o lógica base para la bolsa juvenil</div>
+          </div>
+        </div>
+        <div class="entregable-item">
+          <div class="entregable-item__num">04</div>
+          <div class="entregable-item__content">
+            <div class="entregable-item__title">Piezas de comunicación para difusión local</div>
+          </div>
+        </div>
+        <div class="entregable-item">
+          <div class="entregable-item__num">05</div>
+          <div class="entregable-item__content">
+            <div class="entregable-item__title">Sesiones informativas ejecutadas</div>
+          </div>
+        </div>
+        <div class="entregable-item">
+          <div class="entregable-item__num">06</div>
+          <div class="entregable-item__content">
+            <div class="entregable-item__title">Formación interna impartida</div>
+          </div>
+        </div>
+        <div class="entregable-item">
+          <div class="entregable-item__num">07</div>
+          <div class="entregable-item__content">
+            <div class="entregable-item__title">Acción final de visibilización y cierre</div>
+          </div>
+        </div>
+        <div class="entregable-item">
+          <div class="entregable-item__num">08</div>
+          <div class="entregable-item__content">
+            <div class="entregable-item__title">Recomendaciones para continuidad municipal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       8. VALOR PARA EL MUNICIPIO
+       Editar: beneficios en las tarjetas
+       ============================================================ -->
+  <section class="section section--dark" id="valor">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <span class="section-label">Por qué elegirlo</span>
+        <div class="divider"></div>
+        <!-- EDITAR: título -->
+        <h2 class="section-heading">Valor para el municipio</h2>
+        <p class="section-sub">Un servicio con retorno real en visibilidad, capacidad interna y activación juvenil.</p>
+      </div>
+
+      <!-- EDITAR: tarjetas de valor -->
+      <div class="valor__grid" style="grid-template-columns:repeat(4,1fr);">
+        <div class="valor-card">
+          <div class="valor-card__title">Refuerza la visibilidad municipal en materia de juventud y Europa</div>
+        </div>
+        <div class="valor-card">
+          <div class="valor-card__title">Acerca información útil a la población joven en espacios reales</div>
+        </div>
+        <div class="valor-card">
+          <div class="valor-card__title">Genera materiales reutilizables por el ayuntamiento</div>
+        </div>
+        <div class="valor-card">
+          <div class="valor-card__title">Deja una base organizada de personas interesadas</div>
+        </div>
+        <div class="valor-card">
+          <div class="valor-card__title">Mejora la capacidad interna del personal municipal</div>
+        </div>
+        <div class="valor-card">
+          <div class="valor-card__title">Ofrece resultados tangibles en un plazo breve</div>
+        </div>
+        <div class="valor-card">
+          <div class="valor-card__title">Facilita la continuidad del servicio más allá de la actuación inicial</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       9. EXPERIENCIA RELACIONADA
+       Editar: título y 3 tarjetas de caso
+       ============================================================ -->
+  <section class="section" id="experiencia">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <span class="section-label">Trayectoria</span>
+        <div class="divider"></div>
+        <!-- EDITAR: título -->
+        <h2 class="section-heading">Experiencia relacionada</h2>
+        <p class="section-sub">Proyectos y buenas prácticas en los que nos hemos basado para construir esta propuesta.</p>
+      </div>
+
+      <!-- EDITAR: tarjetas de caso (nombre, descripción, etiqueta, color del header) -->
+      <div class="casos__grid">
+
+        <div class="caso-card">
+          <div class="caso-card__header">
+            <!-- EDITAR: categoría -->
+            <span class="caso-card__tag">Juventud y participación</span>
+          </div>
+          <div class="caso-card__body">
+            <!-- EDITAR: título -->
+            <div class="caso-card__title">Proyectos de dinamización y participación juvenil</div>
+            <!-- EDITAR: texto -->
+            <p class="caso-card__text">
+              Diseño y acompañamiento de iniciativas locales orientadas a implicar a población joven,
+              activar procesos participativos y generar materiales útiles para la difusión municipal.
+            </p>
+          </div>
+        </div>
+
+        <div class="caso-card">
+          <div class="caso-card__header">
+            <!-- EDITAR: categoría -->
+            <span class="caso-card__tag">Comunicación institucional</span>
+          </div>
+          <div class="caso-card__body">
+            <!-- EDITAR: título -->
+            <div class="caso-card__title">Servicios de comunicación y activación pública</div>
+            <!-- EDITAR: texto -->
+            <p class="caso-card__text">
+              Desarrollo de recursos, campañas y acciones presenciales para acercar proyectos
+              municipales complejos a públicos diversos, con un enfoque claro, visual y operativo.
+            </p>
+          </div>
+        </div>
+
+        <div class="caso-card">
+          <div class="caso-card__header">
+            <!-- EDITAR: categoría -->
+            <span class="caso-card__tag">Europa y administración local</span>
+          </div>
+          <div class="caso-card__body">
+            <!-- EDITAR: título -->
+            <div class="caso-card__title">Asistencia técnica en iniciativas y programas europeos</div>
+            <!-- EDITAR: texto -->
+            <p class="caso-card__text">
+              Trabajo con administraciones locales en identificación, formulación, comunicación
+              y despliegue de iniciativas vinculadas a programas europeos y oportunidades
+              de proyección local.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       10. CIERRE / CONTACTO
+       Editar: frase final, datos de contacto
+       ============================================================ -->
+  <section class="section section--dark" id="contacto">
+    <div class="container">
+      <div class="contacto__inner">
+        <!-- EDITAR: texto de cierre -->
+        <p class="contacto__sub" style="font-size:var(--text-xl);color:rgba(255,255,255,0.88);max-width:52ch;margin-inline:auto;">
+          Una propuesta pensada para que los ayuntamientos activen de forma rápida, visible
+          y estructurada una línea local de oportunidades europeas para la juventud.
+        </p>
+
+        <div class="contacto__actions">
+          <!-- EDITAR: botón principal de contacto -->
+          <a href="mailto:crea360@crea360.es" class="btn btn--primary">Hablar con Crea360</a>
+
+          <!-- EDITAR: datos de contacto -->
+          <div class="contacto__data">
+            <div class="contacto__item">
+              <span>✉️</span>
+              <!-- EDITAR: email -->
+              <strong>crea360@crea360.es</strong>
+            </div>
+            <div class="contacto__item">
+              <span>🌐</span>
+              <!-- EDITAR: web -->
+              <strong>www.crea360.es</strong>
+            </div>
+            <div class="contacto__item">
+              <span>📞</span>
+              <!-- EDITAR: teléfono -->
+              <strong>654 696 006</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer dentro del bloque oscuro -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__inner">
+          <!-- EDITAR: logo footer — mismo que nav -->
+          <div class="footer__logo">
+            <img src="logo-crea360.png" alt="Crea360" height="32" style="display:block;filter:brightness(0) invert(1);" />
+          </div>
+          <!-- EDITAR: texto de copyright -->
+          <div class="footer__copy">© 2025 Crea360. Europa Jove Local es una propuesta de servicio municipal.</div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+
+  <!-- ============================================================
+       JAVASCRIPT — solo navegación suave y menú móvil
+       ============================================================ -->
+  <script>
+    // ---- Menú móvil ----
+    const toggle = document.getElementById('navToggle');
+    const menu   = document.getElementById('navMenu');
+
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('is-open');
+    });
+
+    // Cerrar menú al clicar un enlace en móvil
+    menu.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => menu.classList.remove('is-open'));
+    });
+
+    // ---- Nav activo en scroll ----
+    const sections = document.querySelectorAll('section[id], nav[id]');
+    const navLinks  = document.querySelectorAll('.nav__link');
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              link.classList.toggle(
+                'nav__link--active',
+                link.getAttribute('href') === `#${id}`
+              );
+            });
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
