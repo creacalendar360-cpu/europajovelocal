@@ -263,11 +263,9 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(
-        ellipse 60% 80% at 90% 40%,
-        rgba(232, 37, 46, 0.18) 0%,
-        transparent 65%
-      );
+      background:
+        radial-gradient(ellipse 45% 65% at 92% 30%, rgba(232, 37, 46, 0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 55% at 10% 90%, rgba(250, 193, 25, 0.07) 0%, transparent 55%);
       pointer-events: none;
     }
 
@@ -284,17 +282,9 @@
     .hero__inner {
       position: relative;
       z-index: 1;
-      max-width: 680px;
-    }
-
-    .hero__eyebrow {
-      display: block;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: 1.5rem;
+      max-width: 700px;
+      border-left: 3px solid var(--color-accent);
+      padding-left: 2.5rem;
     }
 
     .hero__title {
@@ -308,19 +298,19 @@
     }
 
     .hero__sub {
-      font-size: clamp(var(--text-base), 2vw, var(--text-xl));
-      color: rgba(255,255,255,0.72);
-      line-height: 1.5;
-      margin-bottom: 1rem;
-      font-weight: 400;
+      font-size: clamp(var(--text-lg), 2.2vw, var(--text-xl));
+      color: rgba(255,255,255,0.82);
+      line-height: 1.45;
+      margin-bottom: 1.25rem;
+      font-weight: 500;
     }
 
     .hero__body {
       font-size: var(--text-base);
-      color: rgba(255,255,255,0.55);
-      line-height: 1.7;
-      max-width: 52ch;
-      margin-bottom: 2.75rem;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.72;
+      max-width: 54ch;
+      margin-bottom: 3rem;
     }
 
     .hero__actions {
@@ -656,6 +646,67 @@
     }
 
     /* ============================================================
+       RESULTADOS CONCEPTUALES
+       ============================================================ */
+    .resultados__conceptos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-surface);
+    }
+
+    .resultado-item {
+      padding: 2rem 2rem 2rem 1.75rem;
+      border-bottom: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      border-top: 3px solid transparent;
+      transition: background-color 0.15s;
+    }
+
+    .resultado-item:hover { background-color: var(--color-surface-2); }
+
+    /* Quitar borde derecho en la tercera columna */
+    .resultado-item:nth-child(3n) { border-right: none; }
+    /* Quitar borde inferior en la última fila */
+    .resultado-item:nth-last-child(-n+3) { border-bottom: none; }
+
+    /* Color de acento superior por columna */
+    .resultado-item:nth-child(3n+1) { border-top-color: var(--color-primary); }
+    .resultado-item:nth-child(3n+2) { border-top-color: var(--color-secondary); }
+    .resultado-item:nth-child(3n+3) { border-top-color: var(--color-accent); }
+
+    .resultado-item__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .resultado-item__text {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+
+    /* Etiqueta de año para cifras */
+    .quienes__year {
+      display: inline-block;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      border-bottom: 2px solid var(--color-accent);
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ============================================================
        FOOTER
        ============================================================ */
     .footer {
@@ -672,16 +723,24 @@
       flex-wrap: wrap;
     }
 
+    /* Logo en footer sobre fondo oscuro: contenedor con fondo blanco semitransparente */
+    .footer__logo {
+      background: rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 0.4rem 0.9rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
     .footer__logo img {
-      height: 26px;
+      height: 28px;
       width: auto;
-      filter: brightness(0) invert(1);
-      opacity: 0.65;
+      display: block;
     }
 
     .footer__copy {
       font-size: var(--text-xs);
-      color: rgba(255,255,255,0.32);
+      color: rgba(255,255,255,0.35);
     }
 
     /* ============================================================
@@ -689,10 +748,13 @@
        ============================================================ */
     @media (max-width: 1024px) {
       :root { --section-pad-y: 5rem; }
-      .despliegue__grid { grid-template-columns: repeat(2, 1fr); }
-      .quienes__body    { grid-template-columns: 1fr; gap: 2.5rem; }
-      .marco__body      { grid-template-columns: 1fr; gap: 2.5rem; }
-      .resultados__grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .despliegue__grid      { grid-template-columns: repeat(2, 1fr); }
+      .quienes__body         { grid-template-columns: 1fr; gap: 2.5rem; }
+      .resultados__conceptos { grid-template-columns: 1fr 1fr; }
+      .resultado-item:nth-child(3n)           { border-right: 1px solid var(--color-border); }
+      .resultado-item:nth-child(2n)           { border-right: none; }
+      .resultado-item:nth-last-child(-n+3)    { border-bottom: 1px solid var(--color-border); }
+      .resultado-item:nth-last-child(-n+2)    { border-bottom: none; }
     }
 
     @media (max-width: 768px) {
@@ -718,18 +780,23 @@
         z-index: 99;
       }
 
-      .nav__cta         { display: none; }
-      .despliegue__grid { grid-template-columns: 1fr; }
-      .incluye__grid    { grid-template-columns: 1fr; }
-      .quienes__pillars { grid-template-columns: 1fr; }
-      .resultados__grid { grid-template-columns: 1fr; }
+      .nav__cta              { display: none; }
+      .despliegue__grid      { grid-template-columns: 1fr; }
+      .incluye__grid         { grid-template-columns: 1fr; }
+      .resultados__conceptos { grid-template-columns: 1fr; }
 
-      .check-item:nth-child(odd) { border-right: none; }
-      .check-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--color-border); }
-      .check-item:last-child { border-bottom: none; }
+      /* Resetear bordes en columna única */
+      .resultado-item                      { border-right: none !important; }
+      .resultado-item:nth-last-child(-n+3) { border-bottom: 1px solid var(--color-border) !important; }
+      .resultado-item:last-child           { border-bottom: none !important; }
 
-      .hero__actions { flex-direction: column; align-items: flex-start; }
-      .footer__inner { flex-direction: column; text-align: center; }
+      .check-item:nth-child(odd)           { border-right: none; }
+      .check-item:nth-last-child(-n+2)     { border-bottom: 1px solid var(--color-border); }
+      .check-item:last-child               { border-bottom: none; }
+
+      .hero__inner    { padding-left: 1.25rem; }
+      .hero__actions  { flex-direction: column; align-items: flex-start; }
+      .footer__inner  { flex-direction: column; text-align: center; }
     }
 
     @media (max-width: 480px) {
@@ -753,10 +820,10 @@
         </a>
 
         <ul class="nav__menu" id="navMenu">
+          <li><a class="nav__link" href="#quienes">Crea360</a></li>
+          <li><a class="nav__link" href="#marco">El contexto</a></li>
           <li><a class="nav__link" href="#servicio">El servicio</a></li>
-          <li><a class="nav__link" href="#despliegue">Despliegue</a></li>
           <li><a class="nav__link" href="#incluye">Qué incluye</a></li>
-          <li><a class="nav__link" href="#resultados">Resultados</a></li>
           <li><a class="nav__link" href="#contacto">Contacto</a></li>
         </ul>
 
@@ -780,11 +847,8 @@
     <div class="container">
       <div class="hero__inner">
 
-        <!-- EDITAR: etiqueta eyebrow -->
-        <span class="hero__eyebrow">Crea360 · Propuesta de servicio municipal</span>
-
         <!-- EDITAR: nombre del servicio -->
-        <h1 class="hero__title">Europa Jove Local</h1>
+        <h1 class="hero__title">Europa<br>Jove Local</h1>
 
         <!-- EDITAR: subtítulo -->
         <p class="hero__sub">
@@ -793,9 +857,9 @@
 
         <!-- EDITAR: texto descriptivo -->
         <p class="hero__body">
-          Una propuesta de Crea360 para ayudar a los ayuntamientos a activar,
-          difundir y estructurar un servicio local de información y conexión
-          de jóvenes con oportunidades europeas.
+          Una propuesta de Crea360 para ayudar a los ayuntamientos de la provincia
+          de València a activar, difundir y estructurar un servicio local de información
+          y conexión de los jóvenes con oportunidades europeas.
         </p>
 
         <div class="hero__actions">
@@ -830,8 +894,9 @@
           claro y orientado a resultados.
         </p>
 
-        <!-- EDITAR: cifras destacadas -->
+        <!-- EDITAR: cifras destacadas — año de referencia -->
         <div class="quienes__stats">
+          <span class="quienes__year">En 2025</span>
           <div class="stat">
             <span class="stat__num">223</span>
             <span class="stat__label">proyectos gestionados</span>
@@ -853,6 +918,7 @@
 
   <!-- ============================================================
        3. MARCO DE LA PROPUESTA
+       Editar: texto de contexto e institucional
        ============================================================ -->
   <section class="section section--white" id="marco">
     <div class="container">
@@ -864,31 +930,29 @@
 
       <div class="marco__body">
 
-        <!-- EDITAR: texto de contexto -->
         <div class="marco__text">
           <p>
             Muchos ayuntamientos quieren acercar a la población joven las oportunidades
             que ofrece Europa, pero no siempre cuentan con una estructura clara para
-            hacerlo. Informar bien, generar interés, disponer de materiales útiles,
-            contar con un espacio específico en la web municipal o crear un canal estable
-            para conectar con jóvenes requiere tiempo, enfoque y herramientas concretas.
+            hacerlo. Informar bien, generar interés, disponer de materiales útiles
+            o crear un canal estable para conectar con los jóvenes de su municipio
+            requiere tiempo, enfoque y herramientas concretas.
           </p>
           <p>
-            Europa Jove Local nace para dar respuesta a esa necesidad con un formato
-            sencillo, visible y listo para desplegar.
+            Europa Jove Local es una propuesta diseñada por Crea360 que nace para dar
+            respuesta a esa necesidad con un formato sencillo, visible y listo para desplegar.
           </p>
         </div>
 
-        <!-- EDITAR: caja de contexto institucional -->
         <div class="marco__highlight">
           <p>
-            Esta propuesta se enmarca en la previsión de una convocatoria de ayudas
-            de la <strong>Diputació de València</strong> dirigida a municipios,
-            para apoyar la activación de servicios locales de información y dinamización
-            juvenil vinculados a oportunidades europeas.
+            Esta propuesta se enmarca en la convocatoria específica de ayudas de la
+            <strong>Diputació de València</strong> dirigida a municipios, para apoyar
+            la activación de servicios locales de información y dinamización juvenil
+            vinculados a oportunidades europeas.
           </p>
           <p>
-            El servicio está diseñado para adaptarse a las condiciones y requisitos
+            El servicio está pensado para adaptarse a las condiciones y requisitos
             de esta convocatoria, ofreciendo al ayuntamiento un despliegue ágil,
             documentado y con resultados tangibles desde el primer momento.
           </p>
@@ -900,7 +964,8 @@
 
 
   <!-- ============================================================
-       4. EL SERVICIO
+       4+5. EL SERVICIO — descripción + despliegue por fases
+       Editar: texto introductorio y 4 tarjetas de fase
        ============================================================ -->
   <section class="section section--alt" id="servicio">
     <div class="container">
@@ -910,50 +975,28 @@
         <h2 class="section-heading">El servicio</h2>
       </div>
 
-      <div class="servicio__inner">
-
-        <!-- EDITAR: descripción del servicio -->
+      <!-- Descripción general -->
+      <div class="servicio__inner" style="margin-bottom:3.5rem;">
         <p class="servicio__text">
-          Europa Jove Local es un servicio municipal llave en mano para activar una línea
-          local de información, difusión y conexión de jóvenes con oportunidades europeas.
-          La propuesta combina acciones presenciales, recursos de comunicación, soporte
-          digital, formación interna y herramientas básicas de continuidad para que el
-          ayuntamiento pueda ordenar y hacer visible este ámbito de trabajo.
+          Europa Jove Local es un servicio impulsado desde el ámbito municipal para activar
+          una línea local de información, difusión y conexión de jóvenes con oportunidades
+          europeas. La propuesta combina acciones presenciales, recursos de comunicación,
+          soporte digital, formación interna y herramientas básicas de continuidad para
+          que el ayuntamiento pueda ordenar y hacer visible este ámbito de trabajo.
         </p>
-
-        <!-- EDITAR: etiquetas temáticas -->
-        <div class="servicio__tags">
-          <span class="tag">Movilidad</span>
-          <span class="tag">Formación</span>
-          <span class="tag">Participación</span>
-          <span class="tag">Voluntariado</span>
-          <span class="tag">Empleo y emprendimiento</span>
-          <span class="tag">Desarrollo personal</span>
-        </div>
-
       </div>
-    </div>
-  </section>
 
-
-  <!-- ============================================================
-       5. DESPLIEGUE DEL SERVICIO — bloque central
-       Editar: 4 tarjetas con título, descripción y bullets
-       ============================================================ -->
-  <section class="section section--white" id="despliegue">
-    <div class="container">
-      <div class="section-header">
+      <!-- Despliegue por fases -->
+      <div style="margin-bottom:1rem;">
         <span class="section-label">Cómo se ejecuta</span>
         <div class="section-rule"></div>
-        <h2 class="section-heading">Despliegue del servicio</h2>
-        <p class="section-sub">Cuatro fases para activar, visibilizar y consolidar el servicio local de oportunidades europeas.</p>
       </div>
+      <p class="section-sub" style="margin-bottom:2.5rem;">Cuatro fases para activar, visibilizar y consolidar el servicio local de oportunidades europeas.</p>
 
-      <div class="despliegue__grid">
+      <div class="despliegue__grid" id="despliegue">
 
         <div class="fase-card">
           <div class="fase-card__num">Fase 01</div>
-          <!-- EDITAR: título, descripción y bullets de cada fase -->
           <div class="fase-card__title">Puesta en marcha</div>
           <p class="fase-card__desc">Definimos la base operativa del servicio y preparamos sus elementos de identidad, comunicación y soporte digital.</p>
           <ul class="fase-card__bullets">
@@ -969,8 +1012,7 @@
           <div class="fase-card__title">Difusión y activación</div>
           <p class="fase-card__desc">Llevamos la información a los espacios donde se encuentra la juventud y activamos la difusión municipal del servicio.</p>
           <ul class="fase-card__bullets">
-            <li>Hasta 4 sesiones informativas y de dinamización</li>
-            <li>Actuaciones en dependencias municipales o centros educativos</li>
+            <li>Hasta 4 sesiones informativas y de dinamización, bien en dependencias municipales o en centros educativos</li>
             <li>Adaptación de contenidos al público destinatario</li>
             <li>Recursos de difusión para redes y canales municipales</li>
           </ul>
@@ -1057,53 +1099,48 @@
 
 
   <!-- ============================================================
-       7. OBJETIVOS, HITOS Y RESULTADOS ESPERADOS
-       Editar: tres columnas de contenido
+       7. RESULTADOS ESPERADOS
+       Editar: 6 ítems conceptuales en grid 3×2
        ============================================================ -->
   <section class="section section--white" id="resultados">
     <div class="container">
       <div class="section-header">
-        <span class="section-label">Qué se consigue</span>
+        <span class="section-label">Qué aporta el servicio</span>
         <div class="section-rule"></div>
-        <h2 class="section-heading">Objetivos, hitos y resultados esperados</h2>
+        <h2 class="section-heading">Resultados esperados</h2>
       </div>
 
-      <div class="resultados__grid">
+      <!-- EDITAR: ítems conceptuales -->
+      <div class="resultados__conceptos">
 
-        <!-- EDITAR: columna objetivos -->
-        <div>
-          <div class="resultado-bloque__title">Objetivos</div>
-          <ul class="resultado-bloque__list">
-            <li>Activar un servicio municipal de oportunidades europeas</li>
-            <li>Llegar a la juventud del municipio con información útil</li>
-            <li>Generar una base organizada de personas interesadas</li>
-            <li>Mejorar la capacidad interna del equipo municipal</li>
-            <li>Dejar materiales y estructura para la continuidad</li>
-          </ul>
+        <div class="resultado-item">
+          <div class="resultado-item__title">Visibilidad municipal</div>
+          <p class="resultado-item__text">El ayuntamiento gana presencia como referente local en materia de juventud y oportunidades europeas.</p>
         </div>
 
-        <!-- EDITAR: columna hitos -->
-        <div>
-          <div class="resultado-bloque__title">Hitos del servicio</div>
-          <ul class="resultado-bloque__list">
-            <li>Identidad y espacio web del servicio activados</li>
-            <li>Sesiones informativas ejecutadas en el municipio</li>
-            <li>Bolsa municipal de jóvenes creada y operativa</li>
-            <li>Formación interna impartida al equipo municipal</li>
-            <li>Foro final de experiencias realizado</li>
-          </ul>
+        <div class="resultado-item">
+          <div class="resultado-item__title">Activación juvenil local</div>
+          <p class="resultado-item__text">Jóvenes del municipio informados y conectados con programas europeos desde su propio entorno.</p>
         </div>
 
-        <!-- EDITAR: columna resultados -->
-        <div>
-          <div class="resultado-bloque__title">Resultados esperados</div>
-          <ul class="resultado-bloque__list">
-            <li>Propuesta operativa de despliegue del servicio</li>
-            <li>Estructura de contenidos para la web municipal</li>
-            <li>Piezas de comunicación para difusión local</li>
-            <li>Acción final de visibilización y cierre</li>
-            <li>Recomendaciones para continuidad municipal</li>
-          </ul>
+        <div class="resultado-item">
+          <div class="resultado-item__title">Capacidad instalada</div>
+          <p class="resultado-item__text">El equipo municipal gana herramientas, conocimiento y confianza para gestionar este ámbito de forma autónoma.</p>
+        </div>
+
+        <div class="resultado-item">
+          <div class="resultado-item__title">Base para la continuidad</div>
+          <p class="resultado-item__text">El servicio deja una estructura lista para funcionar más allá de la actuación inicial, sin depender de apoyo externo.</p>
+        </div>
+
+        <div class="resultado-item">
+          <div class="resultado-item__title">Materiales reutilizables</div>
+          <p class="resultado-item__text">El municipio dispone de recursos de comunicación, captación y formación que puede volver a usar en futuras convocatorias.</p>
+        </div>
+
+        <div class="resultado-item">
+          <div class="resultado-item__title">Resultados documentados</div>
+          <p class="resultado-item__text">Acciones ejecutadas, materiales entregados y jóvenes informados desde el primer día, con evidencia para rendir cuentas.</p>
         </div>
 
       </div>
