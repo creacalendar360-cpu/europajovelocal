@@ -853,6 +853,92 @@
       line-height: 1;
     }
 
+    /* Itinerarios */
+    .oferta__itinerarios {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .itinerario {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
+      border-radius: var(--radius-lg);
+      flex-wrap: wrap;
+    }
+
+    .itinerario--a {
+      background: var(--color-primary);
+    }
+
+    .itinerario--b {
+      background: rgba(17, 23, 159, 0.07);
+      border: 1.5px solid var(--color-border);
+    }
+
+    .itinerario__tipo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      flex: 1;
+      min-width: 14ch;
+    }
+
+    .itinerario__label {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .itinerario--a .itinerario__label { color: var(--color-accent); }
+    .itinerario--b .itinerario__label { color: var(--color-secondary); }
+
+    .itinerario__municipio {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .itinerario--a .itinerario__municipio { color: rgba(255,255,255,0.75); }
+    .itinerario--b .itinerario__municipio { color: var(--color-text); }
+
+    .itinerario__lineas {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .itinerario--a .itinerario__lineas .linea-badge--1 {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    .itinerario--a .itinerario__lineas .linea-badge--2 {
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+    }
+
+    .itinerario__plus {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .itinerario__total {
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .itinerario--a .itinerario__total { color: var(--color-accent); }
+    .itinerario--b .itinerario__total { color: var(--color-primary); }
+
     /* ============================================================
        FOOTER
        ============================================================ */
@@ -932,6 +1018,7 @@
       .incluye__grid         { grid-template-columns: 1fr; }
       .resultados__conceptos { grid-template-columns: 1fr; }
       .oferta__grid          { grid-template-columns: 1fr; }
+      .oferta__itinerarios   { grid-template-columns: 1fr; }
 
       /* Resetear bordes en columna única */
       .resultado-item                      { border-right: none !important; }
@@ -1138,24 +1225,7 @@
 
       <div class="oferta__grid">
 
-        <!-- Línea 2 -->
-        <div class="oferta-card oferta-card--l2">
-          <div class="oferta-card__header">
-            <span class="linea-badge linea-badge--2">Línea 2</span>
-            <div class="oferta-card__importe">hasta 7.000 €</div>
-          </div>
-          <h3 class="oferta-card__name">Europa Jove Local</h3>
-          <p class="oferta-card__desc">Servicio continuo de información, asesoramiento, acompañamiento y sensibilización para que los jóvenes del municipio accedan a los programas europeos.</p>
-          <ul class="oferta-card__points">
-            <li>Sesiones informativas en centros educativos y espacios municipales</li>
-            <li>Recursos de comunicación y difusión en redes municipales</li>
-            <li>Bolsa municipal de jóvenes con perfil e intereses registrados</li>
-            <li>Formación para el equipo técnico municipal</li>
-          </ul>
-          <a href="#servicio" class="oferta-card__link">Ver el servicio →</a>
-        </div>
-
-        <!-- Línea 1 -->
+        <!-- Línea 1 — primero -->
         <div class="oferta-card oferta-card--l1">
           <div class="oferta-card__header">
             <span class="linea-badge linea-badge--1">Línea 1</span>
@@ -1172,15 +1242,52 @@
           <a href="#jornada" class="oferta-card__link">Ver el servicio →</a>
         </div>
 
+        <!-- Línea 2 — segundo -->
+        <div class="oferta-card oferta-card--l2">
+          <div class="oferta-card__header">
+            <span class="linea-badge linea-badge--2">Línea 2</span>
+            <div class="oferta-card__importe">hasta 7.000 €</div>
+          </div>
+          <h3 class="oferta-card__name">Europa Jove Local</h3>
+          <p class="oferta-card__desc">Servicio continuo de información, asesoramiento, acompañamiento y sensibilización para que los jóvenes del municipio accedan a los programas europeos.</p>
+          <ul class="oferta-card__points">
+            <li>Sesiones informativas en centros educativos y espacios municipales</li>
+            <li>Recursos de comunicación y difusión en redes municipales</li>
+            <li>Bolsa municipal de jóvenes con perfil e intereses registrados</li>
+            <li>Formación para el equipo técnico municipal</li>
+          </ul>
+          <a href="#servicio" class="oferta-card__link">Ver el servicio →</a>
+        </div>
+
       </div>
 
-      <!-- Suma combinada -->
-      <div class="oferta__suma">
-        <div class="oferta__suma-inner">
-          <span class="oferta__suma-label">Municipios de hasta 20.000 hab.</span>
-          <span class="oferta__suma-total">hasta 22.000 €</span>
-          <span class="oferta__suma-note">sumando las dos líneas</span>
+      <!-- Itinerarios según tamaño de municipio -->
+      <div class="oferta__itinerarios">
+
+        <div class="itinerario itinerario--a">
+          <div class="itinerario__tipo">
+            <span class="itinerario__label">Itinerario A</span>
+            <span class="itinerario__municipio">Municipios de hasta 20.000 hab.</span>
+          </div>
+          <div class="itinerario__lineas">
+            <span class="linea-badge linea-badge--1">Línea 1</span>
+            <span class="itinerario__plus">+</span>
+            <span class="linea-badge linea-badge--2">Línea 2</span>
+          </div>
+          <div class="itinerario__total">hasta 22.000 €</div>
         </div>
+
+        <div class="itinerario itinerario--b">
+          <div class="itinerario__tipo">
+            <span class="itinerario__label">Itinerario B</span>
+            <span class="itinerario__municipio">Municipios de 20.001 a 49.999 hab.</span>
+          </div>
+          <div class="itinerario__lineas">
+            <span class="linea-badge linea-badge--1">Línea 1</span>
+          </div>
+          <div class="itinerario__total">hasta 15.000 €</div>
+        </div>
+
       </div>
 
     </div>
